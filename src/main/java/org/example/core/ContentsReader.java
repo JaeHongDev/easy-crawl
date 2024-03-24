@@ -1,7 +1,7 @@
 package org.example.core;
 
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.WebDriver;
 
 public interface ContentsReader<T> {
-    T read(WebElement webElement);
+    T read(WebDriver webDriver);
 }

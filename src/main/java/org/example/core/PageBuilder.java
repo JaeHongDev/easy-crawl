@@ -1,11 +1,12 @@
 package org.example.core;
 
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.WebDriver;
 
 class PageBuilder<T> {
     PaginationReader paginationReader;
     ContentsReader<T> contentsReader;
-    WebElement webElement;
+    WebDriver webDriver;
+    PageContentsLoader pageContentsLoader;
 
     public PageBuilder<T> paginationReader(PaginationReader paginationReader) {
         this.paginationReader = paginationReader;
@@ -17,9 +18,14 @@ class PageBuilder<T> {
         return this;
     }
 
+    public PageBuilder<T> pageContentsLoader(PageContentsLoader pageContentsLoader) {
+        this.pageContentsLoader = pageContentsLoader;
+        return this;
+    }
 
-    public PageBuilder<T> webElement(WebElement webElement) {
-        this.webElement = webElement;
+
+    public PageBuilder<T> webElement(WebDriver webDriver) {
+        this.webDriver = webDriver;
         return this;
     }
 
@@ -28,7 +34,9 @@ class PageBuilder<T> {
         return new Page<>(
                 paginationReader,
                 contentsReader,
-                webElement
+                webDriver,
+                pageContentsLoader
+
         );
     }
 }
