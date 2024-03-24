@@ -19,8 +19,8 @@ public class Page<T> {
 
 
     public T execute() {
-        var result = contentsReader.read();
-        var paginationInformation = paginationReader.read();
+        final var result = contentsReader.read(webElement);
+        final var paginationInformation = paginationReader.read(webElement);
 
         if (paginationInformation.isContinue(currentPage++)) {
             return result;
@@ -28,36 +28,5 @@ public class Page<T> {
         return null;
     }
 
-
-    static class PageBuilder<T> {
-        PaginationReader paginationReader;
-        ContentsReader<T> contentsReader;
-        WebElement webElement;
-
-        public PageBuilder<T> paginationReader(PaginationReader paginationReader) {
-            this.paginationReader = paginationReader;
-            return this;
-        }
-
-        public PageBuilder<T> contentsReader(ContentsReader<T> contentsReader) {
-            this.contentsReader = contentsReader;
-            return this;
-        }
-
-
-        public PageBuilder<T> webElement(WebElement webElement) {
-            this.webElement = webElement;
-            return this;
-        }
-
-
-        public Page<T> build(){
-            return new Page<>(
-                    paginationReader,
-                    contentsReader,
-                    webElement
-            );
-        }
-    }
 
 }
