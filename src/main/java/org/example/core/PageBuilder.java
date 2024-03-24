@@ -2,7 +2,7 @@ package org.example.core;
 
 import org.openqa.selenium.WebDriver;
 
-class PageBuilder<T> {
+public class PageBuilder<T> {
     PageInitializer pageInitializer;
     PaginationReader paginationReader;
     ContentsReader<T> contentsReader;
@@ -32,7 +32,7 @@ class PageBuilder<T> {
     }
 
 
-    public PageBuilder<T> webElement(WebDriver webDriver) {
+    public PageBuilder<T> webDriver(WebDriver webDriver) {
         this.webDriver = webDriver;
         return this;
     }
