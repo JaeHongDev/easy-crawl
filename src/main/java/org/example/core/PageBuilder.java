@@ -3,10 +3,18 @@ package org.example.core;
 import org.openqa.selenium.WebDriver;
 
 class PageBuilder<T> {
+    PageInitializer pageInitializer;
     PaginationReader paginationReader;
     ContentsReader<T> contentsReader;
     WebDriver webDriver;
     PageContentsLoader pageContentsLoader;
+    PageReadStopper pageReadStopper;
+
+
+    public PageBuilder<T> pageInitializer(PageInitializer pageInitializer) {
+        this.pageInitializer = pageInitializer;
+        return this;
+    }
 
     public PageBuilder<T> paginationReader(PaginationReader paginationReader) {
         this.paginationReader = paginationReader;
@@ -32,11 +40,12 @@ class PageBuilder<T> {
 
     public Page<T> build() {
         return new Page<>(
+                pageInitializer,
                 paginationReader,
                 contentsReader,
                 webDriver,
-                pageContentsLoader
-
+                pageContentsLoader,
+                pageReadStopper
         );
     }
 }
