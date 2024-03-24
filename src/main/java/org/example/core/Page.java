@@ -3,6 +3,7 @@ package org.example.core;
 
 import java.time.Duration;
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -41,7 +42,7 @@ public class Page<T> {
         webDriver.get(url);
 
         if (Objects.nonNull(pageReadStopper) && pageReadStopper.isSatisfy(webDriver)) {
-            return null;
+            return clear();
         }
 
         pageContentsLoader.waitUntilLoad(webDriverWait);
@@ -52,6 +53,11 @@ public class Page<T> {
         if (paginationInformation.isContinue(currentPage++)) {
             return result;
         }
+        return clear();
+    }
+
+    T clear() {
+        CompletableFuture.runAsync(webDriver::close);
         return null;
     }
 
